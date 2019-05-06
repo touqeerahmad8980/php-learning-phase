@@ -1,5 +1,5 @@
 <?php  
-    require('assets/get-task.php');
+    require('assets/favourite-task.php');
 ?> 
 
 <!DOCTYPE html>
@@ -25,25 +25,25 @@
                     <a class="nav-link" href="./">ADD Task</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="./favourite-list.php">Favourite</a>                   
+                    <a class="nav-link" href="./favourite-list.php">Favourite</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="./tasks-list.php">Task List</a>
-                   
+                    
                 </li>
             </ul>
         </div>
 
     </nav>
     <div class="container">
-        <h3 class="text-center" style="margin-bottom:40px;">Tasks List </h3>
+        <h3 class="text-center" style="margin-bottom:40px;">Favourite List </h3>
         <div class="row">
             <?php
                 if ($result->num_rows > 0) {
                     // output data of each row
                     while($row = $result->fetch_assoc()) {
                         echo "
-                        <div class='col-sm-6' id=".$row["id"]."  style='margin-bottom:30px;'>
+                        <div class='col-sm-6' style='margin-bottom:30px;'>
                             <div class='card'>
                                 <div class='card-body'>
                                     <h4 class='card-title'>".$row["task_name"]."</h4>
@@ -54,11 +54,9 @@
                                     }else{
                                         echo '<span class="text-success status">Active</span>';
                                     };
-                                    echo "<button class='btn btn-primary' onclick='removeTask(".$row["id"].")'>Remove Task</button>";
-                                    if($row["add_favourite"] === '0'){
-                                        echo "<button class='btn btn-primary float-right' onclick='addFav(".$row["id"].")'>Add Favourite</button>";
-                                    }
-                                echo "</div>
+                                    echo "<button class='btn btn-primary' onclick='removeTask(".$row["id"].")'>Remove Task</button>
+                                    <button type='submit' class='btn btn-primary' onclick='removeFav(".$row["id"].")'>Remove Favourite</button>
+                                </div>
                             </div>
                         </div>
                     ";
@@ -73,32 +71,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-    function addFav(id) {
-        $.ajax({
-        type: "POST",
-        url: "assets/add-favourite.php",
-        dataType: 'JSON',
-        data: { id: id, set : true }
-        });
-    }
     function removeTask(id) {
-        var $t = $(this);
         $.ajax({
         type: "POST",
         url: "assets/remove-task.php",
         dataType: 'JSON',
-        context: this,
-        data: { id: id },
-        success: (data) => {
-            if(data == 1 ){
-                $(this).hide();
-                $(this).addClass('text-danger');
-                console.log('true')
-            }else{
-                console.log('false');
-            }
-         }
-        })
+        data: { id: id }
+        });
+    }
+    function removeFav(id) {
+        $.ajax({
+        type: "POST",
+        url: "assets/add-favourite.php",
+        dataType: 'JSON',
+        data: { id: id, set : false }
+        });
     }
    </script>
 </body>

@@ -1,4 +1,6 @@
 <?php
+
+
 ?>
 
 <!DOCTYPE html>
@@ -15,23 +17,23 @@
 
 <body>
     <!-- A grey horizontal navbar that becomes vertical on small screens -->
-<nav class="navbar navbar-expand-sm bg-light">
+    <nav class="navbar navbar-expand-sm bg-light">
 
-    <div class="container">
+        <div class="container">
 
-        <!-- Links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="./">ADD Task</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link 2</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link 3</a>
-            </li>
-        </ul>
-    </div>
+            <!-- Links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="./">ADD Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./favourite-list.php">Favourite</a>                    
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./tasks-list.php">Task List</a>
+                </li>
+            </ul>
+        </div>
 
     </nav>
     <section class="add_page">
@@ -48,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label for="desc">Day for Task:</label>
-                    <input type="date" class="form-control" id="datepicker" name="date" />
+                    <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YY" value="15-08-09" id="datepicker" name="date" />
                 </div>
                 <input name="add" type="submit" class="btn btn-primary" value="Submit">
             </form>
