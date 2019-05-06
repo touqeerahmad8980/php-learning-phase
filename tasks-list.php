@@ -41,28 +41,26 @@
             <?php
                 if ($result->num_rows > 0) {
                     // output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        echo "
-                        <div class='col-sm-6' id=".$row["id"]."  style='margin-bottom:30px;'>
+                    $now = date("Y-m-d");
+                    while($row = $result->fetch_assoc()) { ?>
+                        <div class='col-sm-6' id="<?php echo $row["id"]?>"  style='margin-bottom:30px;'>
                             <div class='card'>
                                 <div class='card-body'>
-                                    <h4 class='card-title'>".$row["task_name"]."</h4>
-                                    <p class='card-text'>".$row["task_description"]."</p>";
-                                    $now = date("Y-m-d");
-                                    if($row["due_date"] < $now) {
-                                        echo '<span class="text-danger status">Expire</span>';
-                                    }else{
-                                        echo '<span class="text-success status">Active</span>';
-                                    };
-                                    echo "<button class='btn btn-primary' onclick='removeTask(".$row["id"].")'>Remove Task</button>";
-                                    if($row["add_favourite"] === '0'){
-                                        echo "<button class='btn btn-primary float-right' onclick='addFav(".$row["id"].")'>Add Favourite</button>";
-                                    }
-                                echo "</div>
+                                    <h4 class='card-title'><?php echo $row["task_name"]?></h4>
+                                    <p class='card-text'><?php echo $row["task_description"] ?></p>
+                                    <?php if($row["due_date"] < $now) { ?>
+                                        <span class="text-danger status">Expire</span>
+                                    <?php  }else{ ?>
+                                        <span class="text-success status">Active</span>
+                                    <?php  }?>
+                                    <button class='btn btn-primary' onclick='removeTask("<?php echo $row["id"] ?>")'>Remove Task</button>
+                                    <?php if($row["add_favourite"] === '0'){ ?>
+                                        <button class='btn btn-primary float-right' onclick='addFav("<?php echo $row["id"] ?>")'>Add Favourite</button>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
-                    ";
-                    }
+                        <?php  }
                 } else {
                     echo "0 results";
                 }
@@ -82,23 +80,20 @@
         });
     }
     function removeTask(id) {
-        var $t = $(this);
+        this_scope=$(this);
         $.ajax({
         type: "POST",
         url: "assets/remove-task.php",
         dataType: 'JSON',
-        context: this,
         data: { id: id },
-        success: (data) => {
+        success: function(data){
             if(data == 1 ){
-                $(this).hide();
-                $(this).addClass('text-danger');
-                console.log('true')
+                this_scope.addClass('hide');
             }else{
                 console.log('false');
             }
-         }
-        })
+        }
+    })
     }
    </script>
 </body>
