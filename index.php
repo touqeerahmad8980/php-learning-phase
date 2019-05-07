@@ -50,7 +50,7 @@
                 <label for="desc">Day for Task:</label>
                 <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YY" min=<?php echo date('Y-m-d'); ?> id="datepicker" name="date" />
             </div>
-            <a id="addtask" class="btn btn-primary">Submit</a>
+            <a id="addtask" href="javascript:void(0)" class="btn btn-primary">Submit</a>
         </div>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
