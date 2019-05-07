@@ -27,10 +27,13 @@
                     <a class="nav-link" href="./">ADD Task</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="./tasks-list.php">Task List</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="./favourite-list.php">Favourite</a>                    
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./tasks-list.php">Task List</a>
+                    <a class="nav-link" href="./expire-task.php">Expire Task</a>                   
                 </li>
             </ul>
         </div>
@@ -39,7 +42,6 @@
     <section class="add_page">
         <div class="container">
             <h3 class="heading text-center mb-5">Task Reminder</h3>
-            <form method="post" action="./assets/create-task.php">
                 <div class="form-group">
                     <label for="title">Task Title:</label>
                     <input type="text" class="form-control" name="title" id="title">
@@ -52,14 +54,32 @@
                     <label for="desc">Day for Task:</label>
                     <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YY" value="15-08-09" id="datepicker" name="date" />
                 </div>
-                <input name="add" type="submit" class="btn btn-primary" value="Submit">
-            </form>
+                <a id="addtask" class="btn btn-primary">Submit</a>
         </div>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
+        $('#addtask').click(function(){
+            title = $('#title').val();
+            desc = $('#desc').val();
+            date = $('#datepicker').val();
+            $.ajax({
+                type: "POST",
+                url: "assets/create-task.php",
+                dataType: 'text',
+                data: { title , desc , date},
+                success: function(data){
+                  if(data === 'already exists'){
+                      alert('sorry record already exists')
+                  }else if(data === 'not exists'){
+                    alert('record added.');
+                    location.href = "./tasks-list.php";                  
+                  }
+                }
+            });
+        });
     </script>
 </body>
 </html>
