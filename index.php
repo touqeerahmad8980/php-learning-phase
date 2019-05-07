@@ -57,11 +57,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
+        function requireInput(value , this_scope){
+            if(value === ''){
+                this_scope.next("span.text-danger").remove();
+                this_scope.parents('.form-group').append('<span class="text-danger">This field is requied.</span>');
+            }else{
+                this_scope.next("span.text-danger").remove();
+            }
+        }
+
+        $('#title , #desc ').keyup(function(){
+            value = $(this).val();
+            this_scope = $(this);
+            requireInput(value , this_scope);
+        });
+        
+        $('#datepicker').change(function(){
+            value = $(this).val();
+            this_scope = $(this);
+            requireInput(value , this_scope);
+        });
+        
         $('#addtask').click(function() {
-            errorCount = $('.form-group span.text-danger').length;
             title = $('#title').val();
             desc = $('#desc').val();
             date = $('#datepicker').val();
+            requireInput(title , $('#title'));
+            requireInput(desc , $('#desc'));
+            requireInput(date , $('#datepicker'));
+            errorCount = $('.form-group span.text-danger').length;
+
             if(errorCount > 0){
                 alert('please validate form first.')
             }else{
@@ -83,29 +108,9 @@
                 //         }
                 //     }
                 // });
+                console.log('true');
             }
         });
-
-        $('#title , #desc ').keyup(function(){
-            value = $(this).val();
-            this_scope = $(this);
-            requireInput(value , this_scope);
-        });
-        
-        $('#datepicker').change(function(){
-            value = $(this).val();
-            this_scope = $(this);
-            requireInput(value , this_scope);
-        })
-
-        function requireInput(value , this_scope){
-            if(value === ''){
-                this_scope.next("span.text-danger").remove();
-                this_scope.parents('.form-group').append('<span class="text-danger">This field is requied.</span>');
-            }else{
-                this_scope.next("span.text-danger").remove();
-            }
-        }
     </script>
 </body>
 
