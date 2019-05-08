@@ -42,6 +42,10 @@
                 <div class="toast-header"><strong class="mr-auto text-success">Congratulation:</strong></div>
                 <div class="toast-body">Login Successfully.</div>
             </div>
+            <div id='failed' class="toast">
+                <div class="toast-header"><strong class="mr-auto text-danger">Login Failed:</strong></div>
+                <div class="toast-body">Please enter correct email or password.</div>
+            </div>
             <h3 class="heading text-center mb-5">Login</h3>
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -130,7 +134,8 @@
                             $('#success').toast({delay: 3000});
                             $('#success').toast('show');
                         }else{
-                            alert(data);
+                            $('#failed').toast({delay: 3000});
+                            $('#failed').toast('show');
                         }
                     }
                 });
