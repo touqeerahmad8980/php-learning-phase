@@ -131,10 +131,13 @@
                     data: {  userEmail, userPass},
                     success: function(data){
                         if(data == 'login'){
-                            $('#success').toast({delay: 3000});
+                            $('#success').toast({delay: 1000});
                             $('#success').toast('show');
+                            setTimeout(() => {
+                                location.href = "./tasks-list.php";
+                            }, 1000);
                         }else{
-                            $('#failed').toast({delay: 3000});
+                            $('#failed').toast({delay: 1000});
                             $('#failed').toast('show');
                         }
                     }
