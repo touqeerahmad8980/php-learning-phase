@@ -4,3 +4,9 @@ body >.navbar{
 .status{position: absolute;top: 10px;right: 15px;font-weight: bold;}
 .navbar-expand-sm .navbar-nav .nav-link{border-right: 1px solid lightgray;}
 .navbar-expand-sm .navbar-nav .nav-item:last-child .nav-link{border-right: none;}
+
+.toast{
+    position: absolute;
+    width: 100%;
+    top: 60px;
+}

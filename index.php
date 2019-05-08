@@ -87,28 +87,25 @@
             requireInput(date , $('#datepicker'));
             errorCount = $('.form-group span.text-danger').length;
 
-            if(errorCount > 0){
-                alert('please validate form first.')
-            }else{
-                // $.ajax({
-                //     type: "POST",
-                //     url: "assets/create-task.php",
-                //     dataType: 'text',
-                //     data: {
-                //         title,
-                //         desc,
-                //         date
-                //     },
-                //     success: function(data) {
-                //         if (data === 'already exists') {
-                //             alert('sorry record already exists')
-                //         } else if (data === 'not exists') {
-                //             alert('record added.');
-                //             location.href = "./tasks-list.php";
-                //         }
-                //     }
-                // });
-                console.log('true');
+            if(errorCount < 1){
+                $.ajax({
+                    type: "POST",
+                    url: "assets/create-task.php",
+                    dataType: 'text',
+                    data: {
+                        title,
+                        desc,
+                        date
+                    },
+                    success: function(data) {
+                        if (data === 'already exists') {
+                            alert('sorry record already exists')
+                        } else if (data === 'not exists') {
+                            alert('record added.');
+                            location.href = "./tasks-list.php";
+                        }
+                    }
+                });
             }
         });
     </script>
