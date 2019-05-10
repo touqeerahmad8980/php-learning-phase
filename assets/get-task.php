@@ -1,8 +1,9 @@
 <?php
 
     require('config.php');
-
-    $getTask = "SELECT * FROM tasks_reminder ORDER BY create_date DESC";
-    // SELECT column-list|* FROM table-name ORDER BY ASC | DESC;
-
-    $result = $conn->query($getTask);
+    
+    if(isset($_SESSION["userid"])){
+        $userId =  $_SESSION["userid"];
+        $getTask = "SELECT * FROM tasks_reminder WHERE userID='$userId' ORDER BY create_date DESC";
+        $result = $conn->query($getTask);
+    }

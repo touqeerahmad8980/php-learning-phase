@@ -46,6 +46,7 @@
     <div class="container">
         <h3 class="text-center" style="margin-bottom:40px;">Favourite List </h3>
         <div class="row">
+            <?php echo $_SESSION["userid"]?>
             <?php
                 if ($result->num_rows > 0) {
                     // output data of each row

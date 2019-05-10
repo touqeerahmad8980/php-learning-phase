@@ -1,6 +1,6 @@
 <?php  
     require('assets/get-task.php');
-    session_start();
+
     if(!isset($_SESSION["loggin"])){
         header('location: ./login.php');
     }
