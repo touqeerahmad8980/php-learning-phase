@@ -1,5 +1,9 @@
 <?php  
     require('assets/favourite-task.php');
+    session_start();
+    if(!isset($_SESSION["loggin"])){
+        header('location: ./login.php');
+    }
 ?> 
 
 <!DOCTYPE html>
@@ -31,7 +35,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./expire-task.php">Expire Task</a>                   
                 </li>
+                <li class="nav-item">
+                    <a id="logout" class="nav-link" href="javascript:void(0)">Logout</a>
+                </li>
             </ul>
+            <P class="username">Hello, <?php echo $_SESSION['username']?></p>
         </div>
 
     </nav>

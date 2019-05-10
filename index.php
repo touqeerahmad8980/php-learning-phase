@@ -1,3 +1,9 @@
+<?php 
+    session_start();
+    if(!isset($_SESSION["loggin"])){
+        header('location: ./login.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +37,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./expire-task.php">Expire Task</a>
                 </li>
+                <li class="nav-item">
+                    <a id="logout" class="nav-link" href="javascript:void(0)">Logout</a>
+                </li>
             </ul>
+            <P class="username">Hello, <?php echo $_SESSION['username']?></p>
         </div>
 
     </nav>
@@ -107,6 +117,21 @@
                     }
                 });
             }
+        });
+
+        $('#logout').click(function(){
+            $.ajax({
+                type: 'POST',
+                url: 'assets/logout.php',
+                data: { loggout:'true'},
+                dataType: 'text',
+                success: function(data) {
+                   console.log('loggout suxcess'+data)
+                   if(data == 'logout'){
+                    location.href = "./login.php";
+                   }
+                }
+            })
         });
     </script>
 </body>

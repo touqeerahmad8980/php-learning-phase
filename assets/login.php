@@ -1,5 +1,6 @@
 <?php
     require('config.php');
+    session_start();
 
     $userEmail = $_POST['userEmail'];
     $userPass =$_POST['userPass'];
@@ -12,13 +13,19 @@
     }else{
         $checkingEmail = "SELECT * FROM `users` WHERE `emailAddress`='$userEmail'";
         $fetchPassword = "SELECT `userPassword` FROM `users` WHERE `emailAddress`='$userEmail'";
+        $fetchUserName = "SELECT `userName` FROM `users` WHERE `emailAddress`='$userEmail'";
         $email = $conn->query($checkingEmail);
+        $userName = $conn->query($fetchUserName)->fetch_assoc();
         $row = $conn->query($fetchPassword)->fetch_assoc();
 
         if($email->num_rows >= 1 && password_verify($userPass, $row['userPassword'])){
             echo 'login';
+            $_SESSION["username"] = $userName['userName'];
+            $_SESSION["email"] = "$userEmail";
+            $_SESSION["loggin"] = true;
         }else{
             echo 'not-login';
+            $_SESSION["loggin"] = false;
             die;
         }
     }
