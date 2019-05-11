@@ -12,7 +12,7 @@
         die;
     }else{
         $userPass = password_hash($_POST['userPass'], PASSWORD_DEFAULT);
-        $signup = "INSERT INTO users(UserName, emailAddress, userPassword)
+        $signup = "INSERT INTO users(userName, emailAddress, userPassword)
         VALUES('$userName', '$userEmail', '$userPass') ";
     
         $signupSuccess = $conn->query($signup);

@@ -1,6 +1,6 @@
 <?php  
     require('assets/get-task.php');
-    session_start();
+
     if(!isset($_SESSION["loggin"])){
         header('location: ./login.php');
     }
@@ -96,6 +96,21 @@
 
     $(document).ready(function(){
         checkEmptyList();  
+    });
+
+    $('#logout').click(function(){
+        $.ajax({
+            type: 'POST',
+            url: 'assets/logout.php',
+            data: { loggout:'true'},
+            dataType: 'text',
+            success: function(data) {
+                console.log('loggout suxcess'+data)
+                if(data == 'logout'){
+                location.href = "./login.php";
+                }
+            }
+        })
     });
    </script>
 </body>

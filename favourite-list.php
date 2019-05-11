@@ -1,6 +1,7 @@
 <?php  
-    require('assets/favourite-task.php');
-    session_start();
+    require('assets/get-task.php');
+    // session_start();
+
     if(!isset($_SESSION["loggin"])){
         header('location: ./login.php');
     }
@@ -44,31 +45,31 @@
 
     </nav>
     <div class="container">
-        <h3 class="text-center" style="margin-bottom:40px;">Favourite List </h3>
+        <h3 class="text-center" style="margin-bottom:40px;">Favourite Tasks List </h3>
         <div class="row">
             <?php
                 if ($result->num_rows > 0) {
                     // output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        echo "
-                        <div class='col-sm-6' style='margin-bottom:30px;'>
-                            <div class='card'>
-                                <div class='card-body'>
-                                    <h4 class='card-title'>".$row["task_name"]."</h4>
-                                    <p class='card-text'>".$row["task_description"]."</p>";
-                                    $now = date("Y-m-d");
-                                    if($row["due_date"] < $now) {
-                                        echo '<span class="text-danger status">Expire</span>';
-                                    }else{
-                                        echo '<span class="text-success status">Active</span>';
-                                    };
-                                    echo "<button class='btn btn-primary' onclick='removeTask(".$row["id"].",this)'>Remove Task</button>
-                                    <button type='submit' class='btn btn-primary' onclick='removeFav(".$row["id"].",this)'>Remove Favourite</button>
+                    $now = date("Y-m-d");
+                    while($row = $result->fetch_assoc()) { ?>
+                        <?php if($row["add_favourite"] === '1'){ ?>
+                            <div class='col-sm-6' id="<?php echo $row["id"]?>"  style='margin-bottom:30px;'>
+                                <div class='card'>
+                                    <div class='card-body'>
+                                        <h4 class='card-title'><?php echo $row["task_name"]?></h4>
+                                        <p class='card-text'><?php echo $row["task_description"] ?></p>
+                                        <?php if($row["due_date"] < $now) { ?>
+                                            <span class="text-danger status">Expire</span>
+                                        <?php  }else{ ?>
+                                            <span class="text-success status">Active</span>
+                                        <?php  }?>
+                                        <button class='btn btn-primary' onclick='removeTask(<?php echo $row["id"].",this"?>)'>Remove Task</button>
+                                        <button type='submit' class='btn btn-primary float-right' onclick='removeFav(<?php echo $row["id"].",this" ?>)'>Remove Favourite</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ";
-                    }
+                        <?php } ?>
+                    <?php  }
                 }
             ?>
         </div>
@@ -105,6 +106,21 @@
     }
     $(document).ready(function(){
         checkEmptyList();  
+    });
+
+    $('#logout').click(function(){
+        $.ajax({
+            type: 'POST',
+            url: 'assets/logout.php',
+            data: { loggout:'true'},
+            dataType: 'text',
+            success: function(data) {
+                console.log('loggout suxcess'+data)
+                if(data == 'logout'){
+                location.href = "./login.php";
+                }
+            }
+        })
     });
    </script>
 </body>
