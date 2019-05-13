@@ -47,6 +47,14 @@
     </nav>
     <section class="add_page">
         <div class="container">
+            <div id='success' class="toast">
+                <div class="toast-header"><strong class="mr-auto text-success">Congratulation:</strong></div>
+                <div class="toast-body">record added.</div>
+            </div>
+            <div id='faild' class="toast">
+                <div class="toast-header"><strong class="mr-auto text-danger">Sorry:</strong></div>
+                <div class="toast-body">Task Already exist.</div>
+            </div>
             <h3 class="heading text-center mb-5">Task Reminder</h3>
             <div class="form-group">
                 <label for="title">Task Title:</label>
@@ -101,10 +109,14 @@
                     },
                     success: function(data) {
                         if (data === 'already exists') {
-                            alert('sorry record already exists')
+                            $('#faild').toast({delay: 1000});
+                            $('#faild').toast('show');
                         } else if (data === 'not exists') {
-                            alert('record added.');
-                            location.href = "./tasks-list.php";
+                            $('#success').toast({delay: 1000});
+                            $('#success').toast('show');
+                            setTimeout(() => {
+                                location.href = "./tasks-list.php";
+                            }, 1000);
                         }
                     }
                 });

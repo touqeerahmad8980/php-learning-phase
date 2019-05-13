@@ -49,14 +49,33 @@
             <?php
                 if ($result->num_rows > 0) {
                     // output data of each row
-                    $now = date("Y-m-d");
+                    
                     while($row = $result->fetch_assoc()) { ?>
                         <?php if($row["add_favourite"] === '0'){ ?>
                             <div class='col-sm-6' id="<?php echo $row["id"]?>"  style='margin-bottom:30px;'>
+                                <?php
+                                    date_default_timezone_set("Asia/Karachi");
+                                    $now = date("Y-m-d H:i:s");
+                                    $create_date = date ($row['create_date']);
+                                    $current = strtotime(date ('Y-m-d H:i:s'));  
+                                    $created = strtotime($create_date);  
+                                    $diff = abs($created - $current);  
+                                    $years = floor($diff / (365*60*60*24));  
+                                    $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));  
+                                    $days = floor(($diff - $years * 365*60*60*24 -  $months*30*60*60*24)/ (60*60*24)); 
+                                    $hours = floor(($diff - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24) / (60*60));  
+                                    $minutes = floor(($diff - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24  - $hours*60*60)/ 60);  
+                                    $seconds = floor(($diff - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60 - $minutes*60));
+                                ?>
                                 <div class='card'>
                                     <div class='card-body'>
                                         <h4 class='card-title'><?php echo $row["task_name"]?></h4>
                                         <p class='card-text'><?php echo $row["task_description"] ?></p>
+                                        <strong class="date">
+                                            <span class="hour"><?php echo  $hours?></span> hour
+                                            <span class="min"><?php echo  $minutes?></span> min
+                                            <span class="sec"><?php echo  $seconds?></span> sec
+                                        </strong>
                                         <?php if($row["due_date"] < $now) { ?>
                                             <span class="text-danger status">Expire</span>
                                         <?php  }else{ ?>
@@ -90,8 +109,35 @@
     }
 
     $(document).ready(function(){
-        checkEmptyList();  
+        checkEmptyList();
+
+        $('.row .col-sm-6').each(function(){
+            setInterval(() => {
+                hour=parseInt($(this).find('.hour').text());
+                min=parseInt($(this).find('.min').text());
+                sec=parseInt($(this).find('.sec').text());
+                sec=sec+1;
+                if(sec>=60){
+                    sec=0;
+                    min=min+1;
+                    if(min>=60){
+                        min=0;
+                        hour=hour+1;
+                    }
+                }
+                // if(hour>=1){
+                //     id = $(this).attr('id');
+                //     addFav(id , $(this));
+                //     $(this).remove();
+                // }
+
+                $(this).find('.hour').text(hour);
+                $(this).find('.min').text(min);
+                $(this).find('.sec').text(sec);
+            }, 1000);
+        })
     });
+    
    </script>
 </body>
 </html>

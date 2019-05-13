@@ -22,3 +22,13 @@ body >.navbar{
     top: 7px;
     font-weight: bold;
 }
+
+.date{
+    font-size: 12px;
+    color: grey;
+    position: absolute;
+    top: 13px;
+    right: 70px;
+    padding-right: 8px;
+    border-right: 1px solid lightgray;
+}
