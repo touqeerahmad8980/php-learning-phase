@@ -1,7 +1,7 @@
 <?php  
     require('assets/get-task.php');
 
-    if(!isset($_SESSION["loggin"])){
+    if(!isset($_SESSION["user"])){
         header('location: ./login.php');
     }
 ?> 
@@ -39,7 +39,7 @@
                     <a id="logout" class="nav-link" href="javascript:void(0)">Logout</a>
                 </li>
             </ul>
-            <P class="username">Hello, <?php echo $_SESSION['username']?></p>
+            <P class="username">Hello, <?php echo $_SESSION['user']['userName']?></p>
         </div>
 
     </nav>
@@ -114,7 +114,7 @@
         $.ajax({
             type: 'POST',
             url: 'assets/logout.php',
-            data: { loggout:'true'},
+            data: { loggout:true},
             dataType: 'text',
             success: function(data) {
                 console.log('loggout suxcess'+data)

@@ -1,7 +1,7 @@
 <?php 
     session_start();
 
-    if($_POST['loggout'] == 'true'){
+    if(isset($_POST['loggout'])){
         session_unset();
         echo 'logout';
     }

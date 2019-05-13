@@ -8,7 +8,8 @@ $description  = $_POST['desc'];
 $dueDate  = $_POST['date'];
 
 if(isset($_POST) && isset($_SESSION['userId'])) {
-    $userId = $_SESSION['userId'];
+    $userId = $_SESSION['user']['userID'];
+    
     $task_already_exist = " SELECT * FROM `tasks_reminder` WHERE `task_name`='$title' ";
     $result = $conn->query($task_already_exist);
     if ($result->num_rows > 0) {
