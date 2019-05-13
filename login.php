@@ -69,47 +69,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
     <script>
-
-        // custom validation function here
-        function checkValidation(value , this_scope){
-            checkType = this_scope.attr("type");
-
-            if(checkType === "email"){
-                emailTest = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-                if(value === ''){
-                    this_scope.next("span.text-danger").remove();
-                    this_scope.parents('.form-group').append('<span class="text-danger">This field is requied.</span>');
-                }
-                else if(!emailTest.test(value)){
-                    this_scope.next("span.text-danger").remove();
-                    this_scope.parents('.form-group').append('<span class="text-danger">Please Enter Valid Email address.</span>');
-                }
-                else{
-                    this_scope.next("span.text-danger").remove();
-                }
-            }
-            else if(checkType === "password"){
-                if(value === ''){
-                    this_scope.next("span.text-danger").remove();
-                    this_scope.parents('.form-group').append('<span class="text-danger">This field is requied.</span>');
-                }else if(value.length < 6){
-                    this_scope.next("span.text-danger").remove();
-                    this_scope.parents('.form-group').append('<span class="text-danger">Please Enter Minimum 6 characters.</span>');
-                }else{
-                    this_scope.next("span.text-danger").remove();
-                }
-            }
-            else{
-                if(value === ''){
-                    this_scope.next("span.text-danger").remove();
-                    this_scope.parents('.form-group').append('<span class="text-danger">This field is requied.</span>');
-                }else{
-                    this_scope.next("span.text-danger").remove();
-                }
-            }
-        }
-
         // all field validation checking
         $('#userName , #userEmail, #userPass').keyup(function(){
             value = $(this).val();

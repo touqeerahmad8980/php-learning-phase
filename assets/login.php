@@ -18,17 +18,10 @@
         $userData = $queryForUserData->fetch_assoc();
 
         if($queryForUserData->num_rows >= 1 && password_verify($userPass, $userData['userPassword'])){
-
-            // create session if credientials match
-            // $_SESSION["userId"] = $userData['userID'];
-            // $_SESSION["username"] = $userData['userName'];
-            // $_SESSION["email"] = "$userEmail";
             $_SESSION["user"] = $userData;
-            // $_SESSION["loggin"] = true;
             echo 'login';
         }else{
             echo 'not-login';
-            // $_SESSION["loggin"] = false;
             die;
         }
     }

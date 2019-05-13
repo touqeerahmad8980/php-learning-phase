@@ -76,6 +76,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
     <script>
     function addFav(id , this_scope) {
         $.ajax({
@@ -88,41 +89,8 @@
         checkEmptyList(); 
     }
 
-    function removeTask(id , this_scope) {
-        $.ajax({
-            type: "POST",
-            url: "assets/remove-task.php",
-            dataType: 'JSON',
-            data: { id: id }
-        });
-        $(this_scope).parents('.col-sm-6').remove();
-        checkEmptyList();  
-    }
-
-    function checkEmptyList(){
-        taskCount = $('.row .col-sm-6').length;
-        if(taskCount <= 0){
-            $('.row').append('<p>Sorry record not found.</p>')
-        }
-    }
-
     $(document).ready(function(){
         checkEmptyList();  
-    });
-
-    $('#logout').click(function(){
-        $.ajax({
-            type: 'POST',
-            url: 'assets/logout.php',
-            data: { loggout:true},
-            dataType: 'text',
-            success: function(data) {
-                console.log('loggout suxcess'+data)
-                if(data == 'logout'){
-                location.href = "./login.php";
-                }
-            }
-        })
     });
    </script>
 </body>

@@ -66,35 +66,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
     <script>
-        function requireInput(value , this_scope){
-            if(value === ''){
-                this_scope.next("span.text-danger").remove();
-                this_scope.parents('.form-group').append('<span class="text-danger">This field is requied.</span>');
-            }else{
-                this_scope.next("span.text-danger").remove();
-            }
-        }
-
         $('#title , #desc ').keyup(function(){
             value = $(this).val();
             this_scope = $(this);
-            requireInput(value , this_scope);
+            checkValidation(value , this_scope);
         });
         
         $('#datepicker').change(function(){
             value = $(this).val();
             this_scope = $(this);
-            requireInput(value , this_scope);
+            checkValidation(value , this_scope);
         });
         
         $('#addtask').click(function() {
             title = $('#title').val();
             desc = $('#desc').val();
             date = $('#datepicker').val();
-            requireInput(title , $('#title'));
-            requireInput(desc , $('#desc'));
-            requireInput(date , $('#datepicker'));
+            checkValidation(title , $('#title'));
+            checkValidation(desc , $('#desc'));
+            checkValidation(date , $('#datepicker'));
             errorCount = $('.form-group span.text-danger').length;
 
             if(errorCount < 1){
@@ -117,21 +109,6 @@
                     }
                 });
             }
-        });
-
-        $('#logout').click(function(){
-            $.ajax({
-                type: 'POST',
-                url: 'assets/logout.php',
-                data: { loggout:true},
-                dataType: 'text',
-                success: function(data) {
-                   console.log('loggout suxcess'+data)
-                   if(data == 'logout'){
-                    location.href = "./login.php";
-                   }
-                }
-            })
         });
     </script>
 </body>
